@@ -1,0 +1,28 @@
+{
+  "name": "smarthomeedge",
+  "version": "0.0.1",
+  "description": "A sample group of modules for controlling your smarthome",
+  "main": "index.js",
+  "scripts": {
+    "local": "node index.js local",
+    "cloud": "node index.js cloud"
+  },
+  "keywords": [
+    "smarthome",
+    "azure",
+    "edge",
+    "yeelight",
+    "samsung",
+    "lg",
+    "iot",
+    "edge"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-yeelight-wifi": "^0.1.2"
+  },
+  "devDependencies": {
+    "azure-iot-gateway": "^1.1.4"
+  }
+}
