@@ -15,8 +15,22 @@
         }
       },
       "args": null
+    },
+    {
+      "name": "node_yeelight_sensor",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/yeelight-sensor-module.js"
+        }
+      },
+      "args": null
     }
   ],
   "links": [
+    {
+      "source": "node_yeelight_sensor",
+      "sink": "node_printer"
+    }
   ]
 }

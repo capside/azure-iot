@@ -23,16 +23,16 @@ module.exports = {
     look.on('detected',(light) => {
         console.log(`New yeelight detected: ${light.id}.`);
 
-        publishMessage(EVENT_LIGHT_DETECTED, 
+        this.publishMessage(EVENT_LIGHT_DETECTED, 
                        `New yeelight bulb detected: ${light.id}.`);
 
         light.on('stateUpdate',(light) => { 
-            publishMessage(EVENT_LIGHT_STATUS_UPDATE, 
+            this.publishMessage(EVENT_LIGHT_STATUS_UPDATE, 
                         `Yeelight bulb state changed: ${light.id}.`);
         });
 
         light.on('disconnected',() => { 
-            publishMessage(EVENT_LIGHT_DISCONNECTED, 
+            this.publishMessage(EVENT_LIGHT_DISCONNECTED, 
                         `Lost connection with yeelight bulb ${light.id}.`);
         });
     
@@ -40,12 +40,14 @@ module.exports = {
 
   },
 
-  destroy: function() {
-    console.log('sensor.destroy');
-  }
-};
+  receive: function (message) {
+  },
 
-function publishMessage(eventId, text, payload) {
+  destroy: function() {
+    console.log('yeelight-sensor.destroy');
+  },
+
+  publishMessage(eventId, text, payload) {
     const message = { eventId, text, payload };
     const promise = this.broker.publish({
       properties: {
@@ -55,4 +57,6 @@ function publishMessage(eventId, text, payload) {
       content: new Uint8Array(Buffer.from(JSON.stringify(message), 'utf8'))
     });  
     return promise;                        
-}
+  } 
+};
+
