@@ -55,12 +55,12 @@ module.exports = {
 
   /*  Example of generated event:
       {
-        "eventId": "EVENT_LIGHT_DETECTED",
-        "text": "New yeelight bulb detected: 0x0000000003329cc3.",
+        "eventId": "EVENT_LIGHT_STATUS_UPDATE",
+        "text": "Yeelight bulb state changed: 0x0000000003329cc3.",
         "payload": {
           "type": "color",
           "power": true,
-          "bright": 47,
+          "bright": 27,
           "rgb": {
             "r": 0,
             "g": 255,
@@ -69,11 +69,15 @@ module.exports = {
           "hsb": {
             "h": 120,
             "s": 100,
-            "b": 47
-          }
+            "b": 27
+          },
+          "id": "0x0000000003329cc3",
+          "name": "",
+          "mac": "28:6c:07:ae:1e:39",
+          "host": "192.168.1.133",
+          "port": 55443
         }
       }
-
 
   */
   publishMessage(eventId, text, light) {
