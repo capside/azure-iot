@@ -18,7 +18,7 @@
     "edge"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "node-yeelight-wifi": "^0.1.2"
   },

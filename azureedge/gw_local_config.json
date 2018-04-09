@@ -1,0 +1,22 @@
+{
+  "loaders": [
+    {
+      "type": "node",
+      "name": "node"
+    }
+  ],
+  "modules": [
+    {
+      "name": "node_printer",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/printer-module.js"
+        }
+      },
+      "args": null
+    }
+  ],
+  "links": [
+  ]
+}
