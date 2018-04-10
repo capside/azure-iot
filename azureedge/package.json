@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "azure-iot-device-amqp": "^1.4.1",
+    "camelcase": "^5.0.0",
     "deep-equal": "^1.0.1",
     "node-yeelight-wifi": "^0.1.2"
   },
