@@ -36,6 +36,17 @@
       },
       "args": {
       }
+    },
+    {
+      "name": "node_yeelight_actuator",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/yeelight-actuator-module.js"
+        }
+      },
+      "args": {
+      }
     }
   ],
   "links": [
@@ -46,6 +57,10 @@
     {
       "source": "node_yeelight_sensor",
       "sink": "node_iothub_amqp"
+    },
+    {
+      "source": "node_iothub_amqp",
+      "sink": "node_yeelight_actuator"
     }
   ]
 }
