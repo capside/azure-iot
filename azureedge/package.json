@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "local": "node index.js local",
-    "debug": "nodemon --inspect  index.js local",
-    "cloud": "node index.js cloud"
+    "dlocal": "nodemon --inspect  index.js local",
+    "cloud": "node index.js cloud",
+    "dcloud": "nodemon --inspect  index.js cloud"
   },
   "keywords": [
     "smarthome",
@@ -21,6 +22,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "azure-iot-device-amqp": "^1.4.1",
     "deep-equal": "^1.0.1",
     "node-yeelight-wifi": "^0.1.2"
   },
