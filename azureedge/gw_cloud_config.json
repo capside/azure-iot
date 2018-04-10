@@ -1,0 +1,51 @@
+{
+  "loaders": [
+    {
+      "type": "node",
+      "name": "node"
+    }
+  ],
+  "modules": [
+    {
+      "name": "node_printer",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/printer-module.js"
+        }
+      },
+      "args": null
+    },
+    {
+      "name": "node_yeelight_sensor",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/yeelight-sensor-module.js"
+        }
+      },
+      "args": null
+    },
+    {
+      "name": "node_iothub_amqp",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/iothub-amqp-module.js"
+        }
+      },
+      "args": {
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "node_yeelight_sensor",
+      "sink": "node_printer"
+    },
+    {
+      "source": "node_yeelight_sensor",
+      "sink": "node_iothub_amqp"
+    }
+  ]
+}
