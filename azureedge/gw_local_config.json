@@ -25,12 +25,69 @@
         }
       },
       "args": null
+    },
+    {
+      "name": "node_yeelight_actuator",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/yeelight-actuator-module.js"
+        }
+      },
+      "args": {
+      }
+    },
+    {
+      "name": "node_local_mqtt",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/local-mqtt-module.js"
+        }
+      },
+      "args": {
+        "mqtt_url" : "mqtt://localhost"
+      }
+    },
+    {
+      "name": "node_sonoff_sensor",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/sonoff-sensor-module.js"
+        }
+      },
+      "args": {        
+       }
+    },
+    {
+      "name": "node_sonoff_relay_actuator",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/sonoff-relay-actuator-module.js"
+        }
+      },
+      "args": {        
+       }
     }
   ],
   "links": [
     {
       "source": "node_yeelight_sensor",
       "sink": "node_printer"
+    },
+    {
+      "source": "node_local_mqtt",
+      "sink": "node_sonoff_sensor"
+    },
+    {
+      "source": "node_sonoff_sensor",
+      "sink": "node_printer"
+    },
+    {
+      "source": "node_sonoff_relay_actuator",
+      "sink": "node_local_mqtt"
     }
   ]
 }
