@@ -44,10 +44,23 @@ module.exports = {
     return true;
   },
 
-  receive(edgeMessage) {
-    let data = Buffer.from(edgeMessage.content).toString('utf8');
 
-    console.log(`local-mqtt.receive - ${data}`);
+  /*
+    Message sample:
+
+    {
+      "eventId": "CMD_SONOFF_RELAY_POWER_ON",
+      "text": "Sonoff relay power on command.",
+      "payload": {
+        "mqttTopic": "/smarthome/sonoff/purple/relay/0/set",
+        "mqttMessage": "0"
+      }
+    }    
+  */
+  receive(edgeMessage) {
+    let data = JSON.parse(Buffer.from(edgeMessage.content).toString('utf8'));
+
+    this.mqttClient.publish(data.payload.mqttTopic, data.payload.mqttMessage);
   },
 
   destroy() {
