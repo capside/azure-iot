@@ -47,6 +47,18 @@
       },
       "args": {
       }
+    },
+    {
+      "name": "node_local_mqtt",
+      "loader": {
+        "name": "node",
+        "entrypoint": {
+          "main.path": "modules/local-mqtt-module.js"
+        }
+      },
+      "args": {
+        "mqtt_url" : "mqtt://localhost"
+      }
     }
   ],
   "links": [
@@ -61,6 +73,10 @@
     {
       "source": "node_iothub_amqp",
       "sink": "node_yeelight_actuator"
+    },
+    {
+      "source": "node_local_mqtt",
+      "sink": "node_printer"
     }
   ]
 }

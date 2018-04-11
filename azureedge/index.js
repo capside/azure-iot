@@ -8,7 +8,7 @@
     if (process.argv.length < 3) {
       throw 'Syntax: npm run [local|cloud]';
     }
-  
+
     const option = process.argv[2];
   
     if (option === 'local') {
