@@ -4,7 +4,8 @@ const Protocol = require('azure-iot-device-amqp').Amqp;
 const DeviceClient = require('azure-iot-device').Client;
 const Message = require('azure-iot-device').Message;
 
-const EVENT_DIRECT_METHOD_INVOKED = 'EVENT_DIRECT_METHOD_INVOKED';
+const EVENT_YEELIGHT_DIRECT_METHOD_INVOKED = 'EVENT_YEELIGHT_DIRECT_METHOD_INVOKED';
+const EVENT_SONOFF_RELAY_DIRECT_METHOD_INVOKED = 'EVENT_SONOFF_RELAY_DIRECT_METHOD_INVOKED';
 
 module.exports = {
   broker: null,
@@ -31,6 +32,7 @@ module.exports = {
     this.iotHubClient.on('message', this.on_iotHubMessage.bind(this));
     console.log('Registering direct method.');
     this.iotHubClient.onDeviceMethod('controlYeelight', this.on_controlYeelight.bind(this));
+    this.iotHubClient.onDeviceMethod('controlSonoffRelay', this.on_controlSonoffRelay.bind(this));
 
     return true;
   },
@@ -92,7 +94,14 @@ module.exports = {
   },
 
   on_controlYeelight(request, response) {
-    this.publishMessage(EVENT_DIRECT_METHOD_INVOKED, 'Direct method (synchronous) invoked from Azure.', request.payload);
+    this.publishMessage(EVENT_YEELIGHT_DIRECT_METHOD_INVOKED, 
+      'Yeelight direct method (synchronous) invoked from Azure.', request.payload);
+    response.send(200, `Method action completed.`);
+  },
+
+  on_controlSonoffRelay(request, response) {
+    this.publishMessage(EVENT_SONOFF_RELAY_DIRECT_METHOD_INVOKED, 
+      'Sonoff relay direct method (synchronous) invoked from Azure.', request.payload);
     response.send(200, `Method action completed.`);
   },
 

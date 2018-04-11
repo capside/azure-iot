@@ -36,7 +36,7 @@ module.exports = {
     {
         "properties": {
             "source": "iothub-amqp-module",
-            "name": "EVENT_DIRECT_METHOD_INVOKED"
+            "name": "EVENT_YEELIGHT_DIRECT_METHOD_INVOKED"
         },
         "content": {
             "0": 123,
@@ -49,7 +49,7 @@ module.exports = {
     Decodified moduleMessage.content example:
 
     {
-        "eventId": "EVENT_DIRECT_METHOD_INVOKED",
+        "eventId": "EVENT_YEELIGHT_DIRECT_METHOD_INVOKED",
         "text": "Direct method (synchronous) invoked from Azure.",
         "payload": {
             "command": "CMD_POWER_ON",
@@ -61,6 +61,10 @@ module.exports = {
   receive(moduleMessage) {
     if(moduleMessage.content){
       let data = JSON.parse(Buffer.from(moduleMessage.content).toString('utf8'));
+      if (data.eventId !== 'EVENT_YEELIGHT_DIRECT_METHOD_INVOKED') {
+          // Ignore commands directed to other devices
+          return;
+      }
       const commandName = camelcase(data.payload.command);
       const commandFn = this[commandName];
       if (!commandFn) {
