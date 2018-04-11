@@ -105,6 +105,10 @@
       "sink": "node_printer"
     },
     {
+      "source": "node_sonoff_sensor",
+      "sink": "node_iothub_amqp"
+    },
+    {
       "source": "node_iothub_amqp",
       "sink": "node_sonoff_relay_actuator"
     },

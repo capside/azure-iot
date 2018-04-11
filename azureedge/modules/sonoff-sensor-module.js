@@ -2,9 +2,9 @@
 
 const mqtt = require('mqtt');
 
-const EVENT_TEMPERATURE_SENSOR = 'EVENT_TEMPERATURE_SENSOR';
-const EVENT_HUMIDITY_SENSOR = 'EVENT_HUMIDITY_SENSOR';
-const EVENT_SONOFF_RELAY_CHANGED ='EVENT_SONOFF_RELAY_CHANGED';
+const EVENT_TEMPERATURE_SENSOR_LECTURE = 'EVENT_TEMPERATURE_SENSOR_LECTURE';
+const EVENT_HUMIDITY_SENSOR_LECTURE = 'EVENT_HUMIDITY_SENSOR_LECTURE';
+const EVENT_SONOFF_RELAY_STATUS_UPDATE ='EVENT_SONOFF_RELAY_STATUS_UPDATE';
 
 module.exports = {
   broker: null,
@@ -86,21 +86,21 @@ module.exports = {
                 id : sensorName,
                 value : data.payload.temperature
             };
-            this.publishMessage(EVENT_TEMPERATURE_SENSOR, 'Temperature reported by sensor (C).', payload);
+            this.publishMessage(EVENT_TEMPERATURE_SENSOR_LECTURE, 'Temperature reported by sensor (C).', payload);
         }
         if (data.payload.humidity) {
             const payload = {
                 id : sensorName,
                 value : data.payload.humidity
             };
-            this.publishMessage(EVENT_HUMIDITY_SENSOR, 'Humidity reported by sensor (%).', payload);
+            this.publishMessage(EVENT_HUMIDITY_SENSOR_LECTURE, 'Humidity reported by sensor (%).', payload);
         }
         if (data.payload['relay/0']) {
             const payload = {
                 id : sensorName,
                 value : data.payload['relay/0']
             };
-            this.publishMessage(EVENT_SONOFF_RELAY_CHANGED, 'Sonoff relay state changed.', payload);
+            this.publishMessage(EVENT_SONOFF_RELAY_STATUS_UPDATE, 'Sonoff relay state changed.', payload);
         }
     }
   },
