@@ -62,10 +62,11 @@ module.exports = {
   on_mqttMessage(topic, mqttMessage) {
     let data = Buffer.from(mqttMessage).toString('utf8');
 
-    const message = { event: EVENT_MQTT_MESSAGE_RECEIVED, 
-                      text : 'Mqtt message received.', 
-                      topic : topic,
-                      payload : data 
+    const message = { 
+        event: EVENT_MQTT_MESSAGE_RECEIVED, 
+        text : 'Mqtt message received.', 
+        topic : topic,
+        payload : JSON.parse(data) 
     };
     const brokerResult = this.broker.publish({
       properties: {
