@@ -3,18 +3,16 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "Sample Short Description",
+          "summary": "Badass butler skill",
           "examplePhrases": [
-            "Alexa open hello world",
-            "Alexa tell hello world I am Jeff",
-            "Alexa tell hello world my name is Peter"
+            "Alexa, ask Alfred to turn on the heater",
+            "Alexa, ask Alfred to turn off the lights."
           ],
           "name": "alfred",
-          "description": "Sample Full Description"
+          "description": "Smarthome control."
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
       "category": "EDUCATION_AND_REFERENCE",
       "distributionCountries": []
     },
