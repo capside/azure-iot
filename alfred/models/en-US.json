@@ -19,7 +19,7 @@
                         "samples": []
                     },
                     {
-                        "name": "AlfredIntent",
+                        "name": "SwitchIntent",
                         "slots": [
                             {
                                 "name": "action",
