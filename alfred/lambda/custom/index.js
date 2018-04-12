@@ -1,6 +1,7 @@
 'use strict';
-var Alexa = require('alexa-sdk');
-var Client = require('azure-iothub').Client;
+const Alexa = require('alexa-sdk');
+const Client = require('azure-iothub').Client;
+const isLambda = require('is-lambda')
 
 const EDGE_DEVICE_ID = 'smarthome';
   
@@ -109,3 +110,29 @@ var handlers = {
         this.response.speak(`Sorry, Alfred didn't catch that.`);
     }
 };
+
+if (isLambda === false) {
+    console.log('Local execution detected. Launching server.');
+    var express = require('express');
+    var bodyParser = require('body-parser');
+    var app = express();
+    app.use(bodyParser.json());
+    app.post('/', function(req, res) {
+        console.log('New request.');
+        var context = {
+            succeed: function (result) {
+                console.log(result);
+                res.json(result);
+            },
+            fail:function (error) {
+                console.log(error);
+            }
+        };
+        var alexa = Alexa.handler(req.body, context);
+        alexa.registerHandlers(handlers);
+        alexa.execute();
+    });
+    app.listen(8080, function () {
+        console.log('Server listening on port 8080.');
+    });    
+}
