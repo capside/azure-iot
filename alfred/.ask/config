@@ -1,0 +1,19 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.30cee8e7-459d-4845-9813-8e4808e35bfe",
+      "was_cloned": false,
+      "merge": {
+        "manifest": {
+          "apis": {
+            "custom": {
+              "endpoint": {
+                "uri": "ask-custom-alfred-default"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
