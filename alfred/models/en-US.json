@@ -60,10 +60,12 @@
                             },                            {
                                 "id": "",
                                 "name": {
-                                    "value": "lights",
+                                    "value": "illumination",
                                     "synonyms": [
+                                        "bulb", "bulbs", 
+                                        "yeelight", "yeelights",
                                         "candle",
-                                        "bulb"
+                                        "lights"
                                     ]
                                 }
                             }
