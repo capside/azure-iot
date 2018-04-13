@@ -1,11 +1,50 @@
 'use strict';
 const Alexa = require('alexa-sdk');
 const Client = require('azure-iothub').Client;
-const isLambda = require('is-lambda')
 
 const EDGE_DEVICE_ID = 'smarthome';
-  
-exports.handler = function(event, context) {
+
+const isAWSLambda = process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_ENV;
+const isAzureFunction = process.env.AzureWebJobsStorage;
+
+if (isAWSLambda) {
+    console.log('AWS Lambda environment detected.');
+    exports.handler = awsLambdaHandler;
+}
+if (isAzureFunction) {
+    console.log('Azure Functions environment detected.');
+    exports.handler = azureFunctionHandler;
+}
+
+function azureFunctionHandler(context, req) {
+    let alexa = require('alexa-skill-sdk-for-azure-function');
+    alexa.setup({
+        azureCtx: context,
+        azureReq: req,
+        handlers: null,
+        trackInvokedIntents: true,
+        enforceVerifier: false,
+        i18nSettings: i18nSettings
+    });
+    
+    alexa.execute(function (azureCtx, req) {
+        return function (err, obj) {
+            if (err) {
+                azureCtx.res = {
+                    status: 400,
+                    body: err
+                };
+            } else {
+                azureCtx.res = {
+                    body: obj
+                };
+            }
+            azureCtx.done();
+        };
+    });
+}
+
+function awsLambdaHandler(event, context) {
     var alexa = Alexa.handler(event, context);
     alexa.registerHandlers(handlers);
     console.log('Initiating alexa skill.');
@@ -132,7 +171,7 @@ var handlers = {
     }
 };
 
-if (isLambda === false) {
+if (!isAWSLambda && !isAzureFunction) {
     if (!process.env.IotHubConnectionString) {
         console.log('Local execution detected but IotHubConnectionString env variable is not set.');
         return;
