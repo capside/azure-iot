@@ -21,10 +21,10 @@ function azureFunctionHandler(context, req) {
     alexa.setup({
         azureCtx: context,
         azureReq: req,
-        handlers: null,
+        handlers: handlers,
         trackInvokedIntents: true,
         enforceVerifier: false,
-        i18nSettings: i18nSettings
+        i18nSettings: null
     });
     
     alexa.execute(function (azureCtx, req) {
