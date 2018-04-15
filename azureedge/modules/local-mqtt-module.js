@@ -16,10 +16,10 @@ module.exports = {
 
     let mqttUrl = '';
     if (process.env.MqttUrl) { 
-      console.log('Setting connection string to IoTHub from environment variable.')
+      console.log('Setting connection string to Mqtt from environment variable.')
       mqttUrl = process.env.MqttUrl;
     } else if (this.configuration && this.configuration.mqtt_url) {
-      console.log('Setting connection string to IoTHub from configuration.')
+      console.log('Setting connection string to mqtt from configuration.')
       mqttUrl = this.configuration.mqtt_url;
     } else {
       console.error('Connection string not found in environment (MqttUrl) nor configuration (mqtt_url).');
