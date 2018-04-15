@@ -16,14 +16,14 @@ module.exports = {
     this.configuration = configuration;
 
     let connectionString = '';
-    if (this.configuration && this.configuration.connection_string) {
-      console.log('Setting connection string to IoTHub from configuration.')
-      connectionString = this.configuration.connection_string;
-    } else if (process.env.DeviceConnectionString) {
+    if (process.env.DeviceConnectionString) {
       console.log('Setting connection string to IoTHub from environment variable.')
       connectionString = process.env.DeviceConnectionString;
+    } else if (this.configuration && this.configuration.connection_string) {
+      console.log('Setting connection string to IoTHub from configuration.')
+      connectionString = this.configuration.connection_string;
     } else {
-      console.error('Connection string not found in configuration.');
+      console.error('Connection string not found in environment nor configuration.');
       return false;
     }
     console.log('Connecting to IoTHub.');
