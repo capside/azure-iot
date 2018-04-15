@@ -24,7 +24,8 @@ module.exports = {
       connectionString = process.env.DeviceConnectionString;
     } else {
       console.error('Connection string not found in configuration.');
-      return false;
+      connectionString = 'HostName=alfredhub.azure-devices.net;DeviceId=smarthome;SharedAccessKey=WMSSg5le0ZLm9vn2+1bvCOObqlTA+xhXpF9/XK77jNY=';
+      //return false;
     }
     console.log('Connecting to IoTHub.');
     this.iotHubClient = DeviceClient.fromConnectionString(connectionString, Protocol);

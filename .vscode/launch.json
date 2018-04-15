@@ -8,7 +8,10 @@
             "type": "node",
             "request": "launch",
             "name": "Iniciar programa",
-            "program": "${workspaceFolder}/azureedge/index.js"
+            "program": "${workspaceFolder}/azureedge/index.js",
+            "env": {
+                "DeviceConnectionString": "HostName=alfredhub.azure-devices.net;DeviceId=smarthome;SharedAccessKey=WMSSg5le0ZLm9vn2+1bvCOObqlTA+xhXpF9/XK77jNY="
+            }
         }
     ]
 }
