@@ -16,16 +16,21 @@ module.exports = {
     this.configuration = configuration;
 
     let connectionString = '';
-    if (this.configuration && this.configuration.connection_string) {
-      console.log('Setting connection string to IoTHub from configuration.')
-      connectionString = this.configuration.connection_string;
-    } else if (process.env.DeviceConnectionString) {
+    if (process.env.DeviceConnectionString) {
       console.log('Setting connection string to IoTHub from environment variable.')
       connectionString = process.env.DeviceConnectionString;
+    } else if (this.configuration && this.configuration.connection_string) {
+      console.log('Setting connection string to IoTHub from configuration.')
+      connectionString = this.configuration.connection_string;
     } else {
+<<<<<<< HEAD
       console.error('Connection string not found in configuration.');
       connectionString = 'HostName=alfredhub.azure-devices.net;DeviceId=smarthome;SharedAccessKey=WMSSg5le0ZLm9vn2+1bvCOObqlTA+xhXpF9/XK77jNY=';
       //return false;
+=======
+      console.error('Connection string not found in environment nor configuration.');
+      return false;
+>>>>>>> 8beebcc3f568e636e582151eb8f9373d87363eb8
     }
     console.log('Connecting to IoTHub.');
     this.iotHubClient = DeviceClient.fromConnectionString(connectionString, Protocol);
