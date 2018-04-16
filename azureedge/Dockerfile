@@ -10,4 +10,4 @@ ADD . .
 
 RUN npm install
 
-CMD ["npm", "run", "cloud"]
+CMD ["sh", "start.sh"]
