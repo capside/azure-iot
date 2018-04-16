@@ -45,9 +45,16 @@ module.exports = {
 
   receive(moduleMessage) {
     if(moduleMessage.content){
-      let data = Buffer.from(moduleMessage.content).toString('utf8');
+      let data = JSON.parse(Buffer.from(moduleMessage.content).toString('utf8'));
+      // make object plain by moving payload to object root so it will be easier to manipulate it from PowerBI
+      for (let propName in data.payload) {
+        if (data.payload.hasOwnProperty(propName)) {
+          data[propName] = data.payload[propName];
+        }
+      }
+      delete data.payload;
       if (this.connected) {
-        var hubMessage = new Message(data);
+        var hubMessage = new Message(JSON.stringify(data));
         if (moduleMessage.properties) {
           for (var prop in moduleMessage.properties) {
             hubMessage.properties.add(prop, moduleMessage.properties[prop]);
