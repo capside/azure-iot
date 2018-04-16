@@ -22,8 +22,14 @@ module.exports = {
       console.log('Setting connection string to mqtt from configuration.')
       mqttUrl = this.configuration.mqtt_url;
     } else {
-      console.error('Connection string not found in environment (MqttUrl) nor configuration (mqtt_url).');
-      return false;
+      const fs = require('fs');
+      if (fs.existsSync('MqttUrl')) {
+        mqttUrl = fs.readFileSync('MqttUrl');
+      }
+      if (!mqttUrl)  {
+        console.error('Mqtt connection string not found in environment, configuration nor file.');
+        return false;
+      }
     }
     const mqttOptions = {
       keepalive : 60,

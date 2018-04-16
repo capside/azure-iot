@@ -23,8 +23,14 @@ module.exports = {
       console.log('Setting connection string to IoTHub from configuration.')
       connectionString = this.configuration.connection_string;
     } else {
-      console.error('Connection string not found in environment nor configuration.');
-      return false;
+      const fs = require('fs');
+      if (fs.existsSync('DeviceConnectionString')) {
+          connectionString = fs.readFileSync('DeviceConnectionString');
+      }
+      if (!connectionString)  {
+        console.error('Connection string not found in environment, configuration nor file.');
+        return false;
+        }
     }
     console.log('Connecting to IoTHub.');
     this.iotHubClient = DeviceClient.fromConnectionString(connectionString, Protocol);
