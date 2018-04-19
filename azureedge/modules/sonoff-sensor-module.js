@@ -83,14 +83,14 @@ module.exports = {
         const data = JSON.parse(messageContent);
         if (data.payload.temperature) {
             const payload = {
-                id : sensorName,
+                device : sensorName,
                 value : data.payload.temperature
             };
             this.publishMessage(EVENT_TEMPERATURE_SENSOR_LECTURE, 'Temperature reported by sensor (C).', payload);
         }
         if (data.payload.humidity) {
             const payload = {
-                id : sensorName,
+                device : sensorName,
                 value : data.payload.humidity
             };
             this.publishMessage(EVENT_HUMIDITY_SENSOR_LECTURE, 'Humidity reported by sensor (%).', payload);
@@ -98,7 +98,7 @@ module.exports = {
         if (data.payload['relay/0']) {
             const payload = {
                 device : sensorName,
-                power : data.payload['relay/0'] ? true : false
+                power : data.payload['relay/0'] == 0? false : true
             };
             this.publishMessage(EVENT_SONOFF_RELAY_STATUS_UPDATE, 'Sonoff relay state changed.', payload);
         }
