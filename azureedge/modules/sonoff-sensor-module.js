@@ -98,7 +98,7 @@ module.exports = {
         if (data.payload['relay/0']) {
             const payload = {
                 device : sensorName,
-                power : data.payload['relay/0']
+                power : data.payload['relay/0'] ? true : false
             };
             this.publishMessage(EVENT_SONOFF_RELAY_STATUS_UPDATE, 'Sonoff relay state changed.', payload);
         }
