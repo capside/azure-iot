@@ -21,28 +21,27 @@ module.exports = {
   },
 
   start: function () {
-
+    console.log('Looking for yeelight devices.');
     let look = new Lookup();
     look.on('detected',(light) => {
-        this.publishMessage(EVENT_LIGHT_DETECTED, 
-                       `New yeelight bulb detected: ${light.id}.`, light);
+      this.publishMessage(EVENT_LIGHT_DETECTED, 
+                      `New yeelight bulb detected: ${light.id}.`, light);
 
-        light.on('stateUpdate',(light) => { 
-          // TODO: manage scenes (currently no event is fired when the rgb is set by a scene)
-          const currentState = light.getState();
-          if (!oldStates[light.id] || !deepEqual(oldStates[light.id], currentState)) {
-            this.publishMessage(EVENT_LIGHT_STATUS_UPDATE, 
-              `Yeelight bulb state changed: ${light.id}.`, light);
-            oldStates[light.id] = currentState;
-          }
-        });
+      light.on('stateUpdate',(light) => { 
+        const currentState = light.getState();
+        if (!oldStates[light.id] || !deepEqual(oldStates[light.id], currentState)) {
+          this.publishMessage(EVENT_LIGHT_STATUS_UPDATE, 
+            `Yeelight bulb state changed: ${light.id}.`, light);
+          oldStates[light.id] = currentState;
+        }
+      });
 
-        light.on('disconnected',() => { 
-          this.publishMessage(EVENT_LIGHT_DISCONNECTED, 
-                      `Lost connection with yeelight bulb ${light.id}.`, light);
-        });
-    
+      light.on('disconnected',() => { 
+        this.publishMessage(EVENT_LIGHT_DISCONNECTED, 
+                    `Lost connection with yeelight bulb ${light.id}.`, light);
+      });    
     });
+    look.findByPortscanning();
 
   },
 
