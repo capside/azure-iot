@@ -4,10 +4,10 @@
   "description": "A sample group of modules for controlling your smarthome",
   "main": "index.js",
   "scripts": {
-    "local": "node index.js local",
-    "dlocal": "nodemon --inspect  index.js local",
-    "cloud": "node index.js cloud",
-    "dcloud": "nodemon --inspect  index.js cloud"
+    "yee" : "node index.js gw_yeelight",
+    "dyee" : "nodemon --inspect  index.js gw_yeelight",
+    "cloud": "node index.js gw_cloud_config",
+    "dcloud": "nodemon --inspect  index.js gw_cloud_config"
   },
   "keywords": [
     "smarthome",
