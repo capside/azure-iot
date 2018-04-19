@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "alfred"
+		},
+		{
+			"path": "C:\\tmp\\web-apps-node-iot-hub-data-visualization"
 		}
 	],
 	"settings": {}
