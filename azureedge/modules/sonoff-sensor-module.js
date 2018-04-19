@@ -97,8 +97,8 @@ module.exports = {
         }
         if (data.payload['relay/0']) {
             const payload = {
-                id : sensorName,
-                value : data.payload['relay/0']
+                device : sensorName,
+                power : data.payload['relay/0']
             };
             this.publishMessage(EVENT_SONOFF_RELAY_STATUS_UPDATE, 'Sonoff relay state changed.', payload);
         }
@@ -109,12 +109,12 @@ module.exports = {
     console.log('sonoff-sensor.destroy');
   },
 
-  publishMessage(eventId, text, payload) {
-    const message = { eventId, text, payload };
+  publishMessage(eventType, text, payload) {
+    const message = { eventType, text, payload };
     const edgeBrokerResult = this.broker.publish({
       properties: {
         source: 'sonoff-module-sensor',
-        name: eventId
+        name: eventType
       },
       content: new Uint8Array(Buffer.from(JSON.stringify(message), 'utf8'))
     });  
