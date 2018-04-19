@@ -80,22 +80,21 @@ module.exports = {
       }
 
   */
-  publishMessage(eventId, text, light) {
+  publishMessage(eventType, text, light) {
     const payload = light.getState();
     payload.id = light.id;
     payload.name = light.name;
     payload.mac = light.mac;
     payload.host = light.host;
     payload.port = light.port;
-    const message = { eventId, text, payload };
-    const promise = this.broker.publish({
+    const message = { eventType, text, payload };
+    this.broker.publish({
       properties: {
         source: 'yeelight-module-sensor',
-        name: eventId
+        name: eventType
       },
       content: new Uint8Array(Buffer.from(JSON.stringify(message), 'utf8'))
     });  
-    return promise;                        
   } 
 };
 
