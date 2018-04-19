@@ -88,12 +88,12 @@ module.exports = {
     console.log('sonoff-relay-actuator.destroy');
   },
 
-  publishMessage(eventId, text, payload) {
-    const message = { eventId, text, payload };
+  publishMessage(eventType, text, payload) {
+    const message = { eventType, text, payload };
     const edgeBrokerResult = this.broker.publish({
       properties: {
         source: 'sonoff-module-sensor',
-        name: eventId
+        name: eventType
       },
       content: new Uint8Array(Buffer.from(JSON.stringify(message), 'utf8'))
     });  

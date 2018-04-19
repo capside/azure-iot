@@ -61,6 +61,7 @@ module.exports = {
           }
         }
         this.iotHubClient.sendEvent(hubMessage, err => {
+          console.log(`Message accepted by the IotHub: %s`, JSON.stringify(hubMessage));
           if (err) {
             console.error(`An error occurred when sending message to Azure IoT Hub: ${err.toString()}`);
           }
@@ -121,14 +122,13 @@ module.exports = {
   publishMessage(eventType, text, command) {
     const payload = command;
     const message = { eventType, text, payload };
-    const promise = this.broker.publish({
+    this.broker.publish({
       properties: {
         source: 'iothub-amqp-module',
         name: eventType
       },
       content: new Uint8Array(Buffer.from(JSON.stringify(message), 'utf8'))
     });   
-    return promise;                        
   } 
   
 };

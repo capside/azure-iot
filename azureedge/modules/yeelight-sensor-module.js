@@ -71,7 +71,7 @@ module.exports = {
             "s": 100,
             "b": 27
           },
-          "id": "0x0000000003329cc3",
+          "device": "0x0000000003329cc3",
           "name": "",
           "mac": "28:6c:07:ae:1e:39",
           "host": "192.168.1.133",
@@ -82,7 +82,7 @@ module.exports = {
   */
   publishMessage(eventType, text, light) {
     const payload = light.getState();
-    payload.id = light.id;
+    payload.device = light.id;
     payload.name = light.name;
     payload.mac = light.mac;
     payload.host = light.host;
