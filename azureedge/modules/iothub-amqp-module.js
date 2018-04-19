@@ -61,7 +61,6 @@ module.exports = {
           }
         }
         this.iotHubClient.sendEvent(hubMessage, err => {
-          console.log(`Message accepted by the IotHub: %s`, JSON.stringify(hubMessage));
           if (err) {
             console.error(`An error occurred when sending message to Azure IoT Hub: ${err.toString()}`);
           }
