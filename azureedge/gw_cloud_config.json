@@ -85,7 +85,7 @@
   ],
   "links": [
     {
-      "source": "node_yeelight_sensor",
+      "source": "*",
       "sink": "node_printer"
     },
     {
@@ -99,10 +99,6 @@
     {
       "source": "node_local_mqtt",
       "sink": "node_sonoff_sensor"
-    },
-    {
-      "source": "node_sonoff_sensor",
-      "sink": "node_printer"
     },
     {
       "source": "node_sonoff_sensor",
