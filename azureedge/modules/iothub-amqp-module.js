@@ -118,13 +118,13 @@ module.exports = {
     response.send(200, `Method action completed.`);
   },
 
-  publishMessage(eventId, text, command) {
+  publishMessage(eventType, text, command) {
     const payload = command;
-    const message = { eventId, text, payload };
+    const message = { eventType, text, payload };
     const promise = this.broker.publish({
       properties: {
         source: 'iothub-amqp-module',
-        name: eventId
+        name: eventType
       },
       content: new Uint8Array(Buffer.from(JSON.stringify(message), 'utf8'))
     });   
