@@ -8,40 +8,38 @@ const isAWSLambda = process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_EN
 const isAzureFunction = process.env.AzureWebJobsStorage;
 
 if (isAWSLambda) {
-    console.log('AWS Lambda environment detected.');
+    console.info('AWS Lambda environment detected.');
     exports.handler = awsLambdaHandler;
-}
-if (isAzureFunction) {
-    console.log('Azure Functions environment detected.');
+} else if (isAzureFunction) {
+    console.info('Azure Functions environment detected.');
     exports.handler = azureFunctionHandler;
+} else {
+    console.info('Local execution detected.');
 }
 
-function azureFunctionHandler(context, req) {
-    let alexa = require('alexa-skill-sdk-for-azure-function');
-    alexa.setup({
-        azureCtx: context,
-        azureReq: req,
-        handlers: handlers,
-        trackInvokedIntents: true,
-        enforceVerifier: false,
-        i18nSettings: null
-    });
-    
-    alexa.execute(function (azureCtx, req) {
-        return function (err, obj) {
-            if (err) {
-                azureCtx.res = {
-                    status: 400,
-                    body: err
-                };
-            } else {
-                azureCtx.res = {
-                    body: obj
-                };
-            }
+function azureFunctionHandler(azureCtx, req) {
+    azureCtx.log('New request.\r\n %s', JSON.stringify(req.body));
+    var context = {
+        succeed: function (result) {
+            azureCtx.log(JSON.stringify(result));
+            azureCtx.res = {
+                body: result
+            };
             azureCtx.done();
-        };
-    });
+        },
+        fail:function (error) {
+            azureCtx.log(JSON.stringify(error));
+            azureCtx.res = {
+                status: 400,
+                body: err
+            };
+            azureCtx.done();
+        }
+    };
+    var alexa = Alexa.handler(req.body, context);
+    alexa.registerHandlers(handlers);
+    alexa.execute();
+    azureCtx.log('Alexa executed.');
 }
 
 function awsLambdaHandler(event, context) {
