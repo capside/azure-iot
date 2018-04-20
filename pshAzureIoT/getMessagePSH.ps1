@@ -3,7 +3,7 @@ $apiVersion = "2016-11-14"
 $contentType = "application/json;charset=utf-8"
 
 # Set HTTP request headers to include Authorization header
-$sasToken = iothub-explorer sas-token "dockerNodejsDevice" --login "HostName=bcampiothub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=C9LL7DYPRrzirngFx1cDa1gYmoeim6znp9gIUvoV3zM="
+$sasToken = iothub-explorer sas-token "dockerNodejsDevice" --login "HostName=alfredhub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=UhfsmHqh8/T0lV7S+opM0LW/ogdksD1sd5/6UaEXwh8="
 $count = 0
 Foreach ($sasTokenSingle in $sasToken){
     if ($count -eq 1){
@@ -14,8 +14,8 @@ Foreach ($sasTokenSingle in $sasToken){
 $requestHeader = @{"Authorization" = $sas}
 
 # Set initial URI for calling Azure Resource Manager REST API
-$uri = "https://bcampiothub.azure-devices.net/devices/dockerNodejsDevice/messages/deviceBound?api-version=$apiVersion"
-$uriCompleted = "https://bcampiothub.azure-devices.net/devices/dockerNodejsDevice/messages/deviceBound/{etag}?api-version=2016-11-14"
+$uri = "https://alfredhub.azure-devices.net/devices/dockerNodejsDevice/messages/deviceBound?api-version=$apiVersion"
+$uriCompleted = "https://alfredhub.azure-devices.net/devices/dockerNodejsDevice/messages/deviceBound/{etag}?api-version=2016-11-14"
     
 # Call Azure Resource Manager REST API
 $count = 0
