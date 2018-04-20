@@ -63,3 +63,4 @@ typings/
 .code
 .code-workspace
 .vscode
+launch.json
