@@ -61,7 +61,7 @@ module.exports = {
   receive(moduleMessage) {
     if(moduleMessage.content){
       let data = JSON.parse(Buffer.from(moduleMessage.content).toString('utf8'));
-      if (data.eventId !== 'EVENT_YEELIGHT_DIRECT_METHOD_INVOKED') {
+      if (data.eventType !== 'EVENT_YEELIGHT_DIRECT_METHOD_INVOKED') {
           // Ignore commands directed to other devices
           return;
       }

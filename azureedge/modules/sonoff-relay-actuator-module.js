@@ -51,11 +51,12 @@ module.exports = {
   receive(moduleMessage) {
     if(moduleMessage.content){
       let data = JSON.parse(Buffer.from(moduleMessage.content).toString('utf8'));
-      if (data.eventId !== 'EVENT_SONOFF_RELAY_DIRECT_METHOD_INVOKED') {
-          // Ignore commands directed to other devices
+      if (data.eventType !== 'EVENT_SONOFF_RELAY_DIRECT_METHOD_INVOKED') {
+        // Ignore commands directed to other devices
           return;
       }
       const commandName = camelcase(data.payload.command);
+      console.log(`sonoff-relay-actuator.receive: Executing command ${commandName}.`);
       const commandFn = this[commandName];
       if (!commandFn) {
         console.error(`Command ${commandName} not supported.`);
