@@ -4,7 +4,7 @@ const mqtt = require('mqtt');
 
 const EVENT_TEMPERATURE_SENSOR_LECTURE = 'EVENT_TEMPERATURE_SENSOR_LECTURE';
 const EVENT_HUMIDITY_SENSOR_LECTURE = 'EVENT_HUMIDITY_SENSOR_LECTURE';
-const EVENT_SONOFF_RELAY_STATUS_UPDATE ='EVENT_SONOFF_RELAY_STATUS_UPDATE';
+const EVENT_SONOFF_RELAY_STATUS_UPDATE = 'EVENT_SONOFF_RELAY_STATUS_UPDATE';
 
 module.exports = {
   broker: null,
@@ -75,33 +75,35 @@ module.exports = {
         }
     }        
   */
- receive: function (message) {
+  receive: function (message) {
     const messageContent = Buffer.from(message.content).toString('utf8');
     const topic = messageContent.match('/smarthome/sonoff/(.*)/data');
-    if (topic && topic.length===2) {
-        const sensorName = topic[1];
-        const data = JSON.parse(messageContent);
-        if (data.payload.temperature) {
-            const payload = {
-                device : sensorName,
-                value : data.payload.temperature
-            };
-            this.publishMessage(EVENT_TEMPERATURE_SENSOR_LECTURE, 'Temperature reported by sensor (C).', payload);
-        }
-        if (data.payload.humidity) {
-            const payload = {
-                device : sensorName,
-                value : data.payload.humidity
-            };
-            this.publishMessage(EVENT_HUMIDITY_SENSOR_LECTURE, 'Humidity reported by sensor (%).', payload);
-        }
-        if (data.payload['relay/0']) {
-            const payload = {
-                device : sensorName,
-                power : data.payload['relay/0'] == 0? false : true
-            };
-            this.publishMessage(EVENT_SONOFF_RELAY_STATUS_UPDATE, 'Sonoff relay state changed.', payload);
-        }
+    if (topic && topic.length === 2) {
+      const sensorName = topic[1];
+      const data = JSON.parse(messageContent);
+      if (data.payload.temperature) {
+        const payload = {
+          device: sensorName,
+          value: data.payload.temperature,
+          temperature: data.payload.temperature
+        };
+        this.publishMessage(EVENT_TEMPERATURE_SENSOR_LECTURE, 'Temperature reported by sensor (C).', payload);
+      }
+      if (data.payload.humidity) {
+        const payload = {
+          device: sensorName,
+          value: data.payload.humidity,
+          humidity: data.payload.humidity
+        };
+        this.publishMessage(EVENT_HUMIDITY_SENSOR_LECTURE, 'Humidity reported by sensor (%).', payload);
+      }
+      if (data.payload['relay/0']) {
+        const payload = {
+          device: sensorName,
+          power: data.payload['relay/0'] == 0 ? false : true
+        };
+        this.publishMessage(EVENT_SONOFF_RELAY_STATUS_UPDATE, 'Sonoff relay state changed.', payload);
+      }
     }
   },
 
@@ -117,8 +119,8 @@ module.exports = {
         name: eventType
       },
       content: new Uint8Array(Buffer.from(JSON.stringify(message), 'utf8'))
-    });  
-    return edgeBrokerResult;                        
-  } 
+    });
+    return edgeBrokerResult;
+  }
 
 };
